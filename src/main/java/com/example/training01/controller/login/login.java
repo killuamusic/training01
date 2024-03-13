@@ -15,4 +15,15 @@ public class login {
     String showTestPage() {
         return "testindex";
     }
+
+    @GetMapping("/header")
+    String he(){
+//      101  th:fragment="header"
+        return "fragment/header";
+    }
+
+    @GetMapping("/he2")
+    String he2(){
+        return "fragment/navigation";
+    }
 }
