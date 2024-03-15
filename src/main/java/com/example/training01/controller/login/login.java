@@ -46,13 +46,13 @@ public class login {
     }
 
     @PostMapping("/login")
-    String submitForm2(@ModelAttribute ModelMap model) {
+    String submitForm2(@ModelAttribute UserLogin userlogin, ModelMap model) {
 
-        System.out.println(model);
+        System.out.println("GO : " + userlogin);
 
-        if (model.getAttribute("inputUsername") == null) {
+        if (userlogin.getUser() == null) {
 
-            model.addAttribute("userp", "No user.");
+            model.addAttribute("relogin", "no_user");
 
             return "login";
         }
