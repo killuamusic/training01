@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:replace="fragment/header::header"></div>
+<!--<div th:replace="fragment/header::header"></div>-->
 <!--<div layout:fragment="content"></div>-->
+<div th:insert="fragment/header"></div>
+
+<div th:insert="fragment/navigation"></div>
+
+<div th:insert="fragment/sidebar"></div>
+
+<section layout:fragment="content"></section>
+
+<div th:insert="fragment/footer"></div>

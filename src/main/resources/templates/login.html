@@ -10,7 +10,7 @@
 <!--</html>-->
 
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
 
     <div th:replace="fragment/header :: head"></div>
@@ -19,10 +19,15 @@
 
 <body>
 
+<!--<div layout:="fragment/navigation :: head-body"></div>-->
 <!--<div th:replace="fragment/navigation :: head-body"></div>-->
+<div th:insert="fragment/navigation"></div>
+
+<div th:insert="fragment/sidebar"></div>
 
 <a th:href="@{/test}">header</a>
 <!--<div th:replace="fragment/footer :: page-footer"></div>-->
+<div th:insert="fragment/footer"></div>
 
 </body>
 </html>
