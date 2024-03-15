@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+    <style>
+        .photoW {
+            width: auto;
+        }
+    </style>
+
+    <div class="modal-loader" id="myModalLoader">
+        <div class="loader"></div>
+    </div>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+                <div class="span9">
+                    <div class="content">
+
+                        <div class="module animate-bottom">
+                            <div class="module-head">
+                                <h3><i class="icon-cog"></i> ASRM API</h3>
+                            </div>
+                        </div>
+
+                        <div class="btn-controls animate-bottom-2">
+                            <div class="btn-box-row row-fluid">
+                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnall.jsp"
+                                   class="btn-box big span6" onclick="goLoad()">
+                                    <i class="icon-desktop"></i>
+                                    <b>MSISDN</b>
+                                </a>
+                                <a href="<%=request.getContextPath()%>/sim_jsp/simall.jsp" class="btn-box big span6"
+                                   onclick="goLoad()">
+                                    <i class="icon-desktop"></i>
+                                    <b>SIM</b>
+                                </a>
+                            </div>
+
+                            <div class="btn-box-row row-fluid">
+                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnapi.jsp"
+                                   class="btn-box big span3" onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>MSISDN API</b>
+                                </a>
+                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnmnp.jsp"
+                                   class="btn-box big span3" onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>MSISDN MNP</b>
+                                </a>
+                                <a href="<%=request.getContextPath()%>/sim_jsp/simself.jsp" class="btn-box big span3"
+                                   onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>SIM Self</b>
+                                </a>
+                                <a href="<%=request.getContextPath()%>/sim_jsp/simpair.jsp" class="btn-box big span3"
+                                   onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>SIM Pair</b>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="module animate-bottom">
+                            <div class="module-head">
+                                <h3><i class="icon-repeat"></i> Life Cycle</h3>
+                            </div>
+                        </div>
+
+                        <div class="btn-controls animate-bottom-2">
+                            <div class="btn-box-row row-fluid">
+                                <a class="btn-box big span6" href="msisdn_jsp/msisdnlifecycle.jsp" onclick="goLoad()">
+                                    <img src="images/MSISDN Life Cycle.jpg">
+                                    <b>MSISDN Life Cycle</b>
+                                </a>
+                                <a class="btn-box big span6" href="sim_jsp/simlifecycle.jsp" onclick="goLoad()">
+                                    <img src="images/SIM Life Cycle.png">
+                                    <b>SIM Life Cycle</b>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModalLoader");
+
+        function goLoad() {
+    //        modal.style.display = "block";
+        }
+    </script>
+</div>

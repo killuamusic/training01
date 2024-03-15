@@ -1,0 +1,63 @@
+<!--    Document   : loading-->
+<!--    Created on : Mar 24, 2022, 6:42:52 PM-->
+<!--    Author     : Parami1-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+<style>
+    .text-run {
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+    }
+</style>
+
+<a type="button" class="btn btn-primary animate-bottom" id="myBtn" style="margin-left: 45%;margin-top: 3%;">Open and close</a>
+
+<div class="modal-loader" id="myModalLoader">
+    <div class="loader" id="loa"></div>
+    <!--<h2 class="text-run">Runing....</h2>-->
+</div>
+
+<script>
+    window.onload = function (){
+        modal.style.display = "none";
+    };
+    // Get the modal
+    var modal = document.getElementById("myModalLoader");
+//    modal.style.display = "block";
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+//    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+//    span.onclick = function () {
+//        modal.style.display = "none";
+//    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target === modal || event.target === document.getElementById("loa")) {
+            modal.style.display = "none";
+        }
+    };
+
+    function afterPageLoad() {
+        alert('hello');
+    }
+</script>
+
+</div>

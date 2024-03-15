@@ -1,33 +1,87 @@
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-
-
-<!--<div th:replace="header :: head"></div>-->
-
-<!--&lt;!&ndash;<div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>&ndash;&gt;-->
-<!--<a th:href="@{/header}">header</a>-->
-<!--</body>-->
-<!--</html>-->
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
-<head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-    <div th:replace="fragment/header :: head"></div>
+<div layout:fragment="content">
 
-</head>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="module module-login span4 offset4">
+                    <!-- login error -->
+<!--                    <% // login.jsp?Action=login-->
+<!--                    if (request.getParameter("Action") != null) {-->
 
-<body>
+<!--                    String username = request.getParameter("inputUsername");-->
+<!--                    String password = request.getParameter("inputPassword");-->
+<!--                    /*-->
+<!--                    if (ulogin.login(username, password)) {-->
+<!--                    session.setAttribute("ss_login", "true");-->
+<!--                    session.setAttribute("pfUser", ulogin.getUser());-->
+<!--                    response.sendRedirect("asrmapi.jsp");-->
+<!--                    } else {-->
+<!--                    out.print("-->
+<!--                    <div class='alert alert-error'>"-->
+<!--                        + "-->
+<!--                        <button type='button' class='close' data-dismiss='alert'>×</button>-->
+<!--                        "-->
+<!--                        + "<strong>You don't have permission to access.</strong>"-->
+<!--                        + "-->
+<!--                    </div>-->
+<!--                    ");-->
+<!--                    }-->
+<!--                    */-->
+<!--                    }-->
 
-<!--<div layout:="fragment/navigation :: head-body"></div>-->
-<!--<div th:replace="fragment/navigation :: head-body"></div>-->
-<div th:insert="fragment/navigation"></div>
+<!--                    // return login faill-->
+<!--                    if (request.getParameter("login") != null) {-->
+<!--                    if (request.getParameter("login").equals("error")) {-->
+<!--                    out.print("-->
+<!--                    <div class='alert alert-error'>"-->
+<!--                        + "-->
+<!--                        <button type='button' class='close' data-dismiss='alert'>×</button>-->
+<!--                        "-->
+<!--                        + "<strong>You don't have permission to access.</strong>"-->
+<!--                        + "-->
+<!--                    </div>-->
+<!--                    ");-->
+<!--                    }-->
+<!--                    }-->
+<!--                    %>-->
+                    <!-- End login error -->
+                    <!-- <form class="form-vertical" method="post" action="login.jsp?Action=login"> -->
+<!--                    <form action="#" th:action="@{/register2}" method="post" th:object="${userfo}">-->
+<!--                    <form class="form-vertical" method="post" action="/login">-->
+                    <form class="form-vertical" method="post" th:action="@{/login}" th:object="${userlogin}">
+                        <div class="module-head">
+                            <h3>Sign In</h3>
+                        </div>
+                        <div class="module-body">
+                            <div class="control-group">
+                                <div class="controls row-fluid">
+                                    <input class="span12" type="text" name="inputUsername" id="inputUsername"
+                                           placeholder="Username" th:field="*{inputUsername}">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls row-fluid">
+                                    <input class="span12" type="password" name="inputPassword" id="inputPassword"
+                                           placeholder="Password" th:field="*{inputPassword}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="module-foot">
+                            <div class="control-group">
+                                <div class="controls clearfix">
+                                    <button type="submit" class="btn btn-primary pull-right">Login</button>
 
-<div th:insert="fragment/sidebar"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><!--/.wrapper-->
 
-<a th:href="@{/test}">header</a>
-<!--<div th:replace="fragment/footer :: page-footer"></div>-->
-<div th:insert="fragment/footer"></div>
-
-</body>
-</html>
+</div>
