@@ -14,18 +14,32 @@ public class HRLogin {
 
     public String checkHRLogin(UserLogin login) {
 
+        String res = "";
+
         if (login == null) {
-            return "Error login=null";
+            res = "null";
+        } else if (login.getUName() == null || login.getUName().equalsIgnoreCase("")) {
+            res = "no_user";
+        } else if (login.getUPass() == null || login.getUPass().equalsIgnoreCase("")) {
+            res = "no_pass";
+        } else if (login.getUName().equalsIgnoreCase("pa") && login.getUPass().equalsIgnoreCase("01")) {
+            res = "ok";
+        } else {
+            res = "no_login";
         }
 
-        if (login.getUName() == null || login.getUName().equals("")) {
-            return "Error user=null";
-        }
-        if (login.getUPass() == null || login.getUPass().equals("")) {
-            return "Error password=null";
-        }
+//        if (login == null) {
+//            return "Error login=null";
+//        }
+//        if (login.getUName() == null || login.getUName().equals("")) {
+//            return "Error user=null";
+//        }
+//        if (login.getUPass() == null || login.getUPass().equals("")) {
+//            return "Error password=null";
+//        }
+//        return "login ok \nuser: " + login.getUName() + "\npass: " + login.getUPass();
 
-        return "login ok \nuser: " + login.getUName() + "\npass: " + login.getUPass();
+        return res;
     }
 
     public UserData testCallUserData() {

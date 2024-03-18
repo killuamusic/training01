@@ -1,17 +1,13 @@
-<%-- 
-    Document   : logout
-    Created on : Sep 29, 2021, 10:56:02 AM
-    Author     : Parami1
---%>
+<!--    Document   : logout-->
+<!--    Created on : Sep 29, 2021, 10:56:02 AM-->
+<!--    Author     : Parami1-->
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
-    Object sslogin = session.getAttribute("ss_login");
-    if (sslogin != null) {
-        session.removeAttribute("ss_login");
-        session.removeAttribute("pfUser");
-    }
-    response.sendRedirect(request.getContextPath() + "/login.jsp");
-%>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- if session -->
+<div th:if="${session.username != null}">
+    <script th:inline="javascript">
+        window.location.href = '/logout';
+    </script>
+</div>

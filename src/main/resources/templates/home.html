@@ -9,6 +9,13 @@
         }
     </style>
 
+    <!-- if session -->
+    <div th:if="${session.username == null}">
+        <script th:inline="javascript">
+            window.location.href = '/';
+        </script>
+    </div>
+
     <div class="modal-loader" id="myModalLoader">
         <div class="loader"></div>
     </div>

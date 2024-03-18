@@ -9,6 +9,13 @@
             <div class="row">
                 <div class="module module-login span4 offset4">
 
+                    <!-- if session -->
+                    <div th:if="${session.username != null}">
+                        <script th:inline="javascript">
+                            window.location.href = '/home';
+                        </script>
+                    </div>
+
                     <!-- Noti Messagn -->
                     <div class='alert' th:unless="${noti_m == null}">
                         <button type='button' class='close' data-dismiss='alert'>×</button>

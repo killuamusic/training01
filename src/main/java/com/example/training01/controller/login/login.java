@@ -1,6 +1,8 @@
 package com.example.training01.controller.login;
 
 import com.example.training01.model.login.UserLogin;
+import com.example.training01.services.login.HRLogin;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,69 +24,79 @@ public class login {
         return "login";
     }
 
-    @GetMapping("/test")
-    String showTestPage() {
-        return "testpage";
-    }
-
-    @GetMapping("/lay")
-    String showLayout() {
-        return "layout/layout";
-    }
-
     @GetMapping("/home")
-    String showHeome() {
+    String showHeome(HttpSession session) {
+        System.out.println("session : "+session.getAttribute("username"));
         return "home";
     }
 
-    @GetMapping("/l1")
-    String showload() {
-        return "loading";
-    }
+    @GetMapping("/logout")
+    String logout(HttpSession session){
+        // ลบ session attribute ที่เกี่ยวข้องกับการล็อกอินออกไป
+//        session.removeAttribute("username");
+        // ลบ session ทั้งหมดออกจาก server
+        session.invalidate();
 
-    @GetMapping("/l2")
-    String showload2() {
-        return "loading2";
+        return "redirect:/login";
     }
 
     @PostMapping("/login")
-    String submitForm2(@ModelAttribute("userlogin") UserLogin userlogin, ModelMap model) {
+    String submitForm2(@ModelAttribute("userlogin") UserLogin userlogin, ModelMap model, HttpSession session) {
 
         System.out.println("GO : " + userlogin);
 
+        HRLogin login = new HRLogin();
+
+        String relogin = login.checkHRLogin(userlogin);
+
 //        model.addAttribute("noti_m", "Message.");
 
-        if (userlogin.getUName() == null) {
-
-            model.addAttribute("relogin", "no_user");
-
-            return "login";
+        switch (relogin) {
+            case "null":
+                model.addAttribute("relogin", "no_user");
+                break;
+            case "no_user":
+                model.addAttribute("relogin", "Please enter a Username.");
+                break;
+            case "no_pass":
+                model.addAttribute("relogin", "Please enter a Password.");
+                break;
+            case "no_login":
+                model.addAttribute("relogin", "You don't have permission to access.");
+                break;
+            case "ok":
+                model.addAttribute("relogin", "ok");
+                session.setAttribute("username", "login_ok");
+                break;
+            default:
+                model.addAttribute("relogin", "Error.");
+                System.out.println("Unknown String login.");
         }
 
-        if (userlogin.getUName().equalsIgnoreCase("")){
+//        if (userlogin.getUName() == null) {
+//            model.addAttribute("relogin", "no_user");
+//            return "login";
+//        }
 
-            model.addAttribute("relogin", "Please enter a Username.");
+//        if (userlogin.getUName().equalsIgnoreCase("")){
+//            model.addAttribute("relogin", "Please enter a Username.");
+//            return "login";
+//        }
 
-            return "login";
-        }
+//        if (userlogin.getUPass().equalsIgnoreCase("")){
+//            model.addAttribute("relogin", "Please enter a Password.");
+//            return "login";
+//        }
 
-        if (userlogin.getUPass().equalsIgnoreCase("")){
+//        if (userlogin.getUName().equalsIgnoreCase("pa") && userlogin.getUPass().equalsIgnoreCase("01")){
+//            model.addAttribute("relogin", "ok");
+//            return "login";
+//        }else {
+//            model.addAttribute("relogin", "You don't have permission to access.");
+//            return "login";
+//        }
 
-            model.addAttribute("relogin", "Please enter a Password.");
-
-            return "login";
-        }
-
-        if (userlogin.getUName().equalsIgnoreCase("pa") && userlogin.getUPass().equalsIgnoreCase("01")){
-
-            model.addAttribute("relogin", "ok");
-
-            return "login";
-        }else {
-            model.addAttribute("relogin", "You don't have permission to access.");
-
-            return "login";
-        }
+        return "login";
 
     }
 
