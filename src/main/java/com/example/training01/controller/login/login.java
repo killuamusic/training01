@@ -17,6 +17,8 @@ public class login {
 
         model.addAttribute("userlogin", ulog);
 
+//        model.addAttribute("noti_m", "Message.");
+
         return "login";
     }
 
@@ -46,9 +48,11 @@ public class login {
     }
 
     @PostMapping("/login")
-    String submitForm2(@ModelAttribute UserLogin userlogin, ModelMap model) {
+    String submitForm2(@ModelAttribute("userlogin") UserLogin userlogin, ModelMap model) {
 
         System.out.println("GO : " + userlogin);
+
+//        model.addAttribute("noti_m", "Message.");
 
         if (userlogin.getUser() == null) {
 
@@ -57,7 +61,31 @@ public class login {
             return "login";
         }
 
-        return "home";
+        if (userlogin.getUser().equalsIgnoreCase("")){
+
+            model.addAttribute("relogin", "Please enter a Username.");
+
+            return "login";
+        }
+
+        if (userlogin.getPass().equalsIgnoreCase("")){
+
+            model.addAttribute("relogin", "Please enter a Password.");
+
+            return "login";
+        }
+
+        if (userlogin.getUser().equalsIgnoreCase("pa") && userlogin.getPass().equalsIgnoreCase("01")){
+
+            model.addAttribute("relogin", "ok");
+
+            return "login";
+        }else {
+            model.addAttribute("relogin", "You don't have permission to access.");
+
+            return "login";
+        }
+
     }
 
 }

@@ -8,50 +8,21 @@
         <div class="container">
             <div class="row">
                 <div class="module module-login span4 offset4">
+
+                    <!-- Noti Messagn -->
+                    <div class='alert' th:unless="${noti_m == null}">
+                        <button type='button' class='close' data-dismiss='alert'>×</button>
+                        <strong th:text="${noti_m}">Noti Messagn</strong>
+                    </div>
+                    <!-- End Noti Messagn -->
+
                     <!-- login error -->
-<!--                    <% // login.jsp?Action=login-->
-<!--                    if (request.getParameter("Action") != null) {-->
-
-<!--                    String username = request.getParameter("inputUsername");-->
-<!--                    String password = request.getParameter("inputPassword");-->
-<!--                    /*-->
-<!--                    if (ulogin.login(username, password)) {-->
-<!--                    session.setAttribute("ss_login", "true");-->
-<!--                    session.setAttribute("pfUser", ulogin.getUser());-->
-<!--                    response.sendRedirect("asrmapi.jsp");-->
-<!--                    } else {-->
-<!--                    out.print("-->
-<!--                    <div class='alert alert-error'>"-->
-<!--                        + "-->
-<!--                        <button type='button' class='close' data-dismiss='alert'>×</button>-->
-<!--                        "-->
-<!--                        + "<strong>You don't have permission to access.</strong>"-->
-<!--                        + "-->
-<!--                    </div>-->
-<!--                    ");-->
-<!--                    }-->
-<!--                    */-->
-<!--                    }-->
-
-<!--                    // return login faill-->
-<!--                    if (request.getParameter("login") != null) {-->
-<!--                    if (request.getParameter("login").equals("error")) {-->
-<!--                    out.print("-->
-<!--                    <div class='alert alert-error'>"-->
-<!--                        + "-->
-<!--                        <button type='button' class='close' data-dismiss='alert'>×</button>-->
-<!--                        "-->
-<!--                        + "<strong>You don't have permission to access.</strong>"-->
-<!--                        + "-->
-<!--                    </div>-->
-<!--                    ");-->
-<!--                    }-->
-<!--                    }-->
-<!--                    %>-->
+                    <div class='alert alert-error' th:unless="${relogin == null}">
+                        <button type='button' class='close' data-dismiss='alert'>×</button>
+                        <strong th:text="${relogin}">You don't have permission to access.</strong>
+                    </div>
                     <!-- End login error -->
-                    <!-- <form class="form-vertical" method="post" action="login.jsp?Action=login"> -->
-<!--                    <form action="#" th:action="@{/register2}" method="post" th:object="${userfo}">-->
-<!--                    <form class="form-vertical" method="post" action="/login">-->
+
                     <form class="form-vertical" method="post" th:action="@{/login}" th:object="${userlogin}">
                         <div class="module-head">
                             <h3>Sign In</h3>
