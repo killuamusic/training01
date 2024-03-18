@@ -3,6 +3,20 @@
       layout:decorate="~{layout/layout}">
 
 <div layout:fragment="content">
-    Fome Login....
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+
+                Fome Login....
+
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
 </div>
+<!--/.layout:fragment="content"-->
 <!--<div th:replace="layout/layout :: yo"></div>-->

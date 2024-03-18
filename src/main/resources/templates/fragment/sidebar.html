@@ -7,34 +7,38 @@
         <ul class="widget widget-menu unstyled">
             <li><a href="/home"><i class="menu-icon icon-cog"></i>ASRM API</a></li>
         </ul>
-        
+
         <!--no.2-->
         <ul class="widget widget-menu unstyled">
             <li><a href="/msisdn_jsp/msisdnall.jsp"><i class="menu-icon icon-desktop"></i>MSISDN </a></li>
             <li><a href="/sim_jsp/simall.jsp"><i class="menu-icon icon-desktop"></i>SIM </a></li>
         </ul>
-        
+
         <!--no.3-->
         <ul class="widget widget-menu unstyled">
             <li>
                 <a class="collapsed" data-toggle="collapse" href="#msisdn">
-                    <i class="menu-icon icon-tasks"></i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
-                    MSISDN 
+                    <i class="menu-icon icon-tasks"></i><i class="icon-chevron-down pull-right"></i><i
+                        class="icon-chevron-up pull-right"></i>
+                    MSISDN
                 </a>
                 <ul id="msisdn" class="collapse unstyled">
-                    <li><a href="/msisdn_jsp/msisdnlifecycle.jsp"><i class="menu-icon icon-repeat"></i>MSISDN Life Cycle </a></li>
+                    <li><a href="/msisdn_jsp/msisdnlifecycle.jsp"><i class="menu-icon icon-repeat"></i>MSISDN Life Cycle
+                    </a></li>
                     <li><a href="/msisdn_jsp/msisdnapi.jsp"><i class="menu-icon icon-cogs"></i>MSISDN API </a></li>
                     <li><a href="/msisdn_jsp/msisdnmnp.jsp"><i class="menu-icon icon-cogs"></i>MSISDN MNP </a></li>
                 </ul>
             </li>
-            
+
             <li>
                 <a class="collapsed" data-toggle="collapse" href="#sim">
-                    <i class="menu-icon icon-tasks"></i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
-                    SIM 
+                    <i class="menu-icon icon-tasks"></i><i class="icon-chevron-down pull-right"></i><i
+                        class="icon-chevron-up pull-right"></i>
+                    SIM
                 </a>
                 <ul id="sim" class="collapse unstyled">
-                    <li><a href="/sim_jsp/simlifecycle.jsp"><i class="menu-icon icon-repeat"></i>SIM Life Cycle </a></li>
+                    <li><a href="/sim_jsp/simlifecycle.jsp"><i class="menu-icon icon-repeat"></i>SIM Life Cycle </a>
+                    </li>
                     <li><a href="/sim_jsp/simself.jsp"><i class="menu-icon icon-cogs"></i>SIM Self </a></li>
                     <li><a href="/sim_jsp/simpair.jsp"><i class="menu-icon icon-cogs"></i>SIM Pair </a></li>
                 </ul>
@@ -42,7 +46,7 @@
         </ul>
 
         <!--no.4-->
-        <ul class="widget widget-menu unstyled">							
+        <ul class="widget widget-menu unstyled">
             <li>
                 <a href="/logout">
                     <i class="menu-icon icon-signout"></i>
@@ -58,7 +62,7 @@
                     <i class="menu-icon icon-cog"></i>
                     <i class="icon-chevron-down pull-right"></i>
                     <i class="icon-chevron-up pull-right"></i>
-                    More Pages 
+                    More Pages
                 </a>
                 <ul id="mor" class="collapse unstyled">
                     <li><a th:href="@{/load1}"><i class="menu-icon icon-repeat"></i>Loading 1 </a></li>

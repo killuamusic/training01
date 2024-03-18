@@ -3,58 +3,68 @@
 <!--    Author     : Parami1-->
 
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/layout}">
 
-<head>
-    <!--        <meta http-equiv="Refresh" content="0;URL=<%=step%>" charset="UTF-8">-->
-    <title>loading...</title>
-    <link rel="icon" href="/images/iconweb.png" type="image/png">
+<!--        <meta http-equiv="Refresh" content="0;URL=<%=step%>" charset="UTF-8">-->
+<!--    <title>loading...</title>-->
+<!--    <link rel="icon" href="/images/iconweb.png" type="image/png">-->
+<div layout:fragment="content">
 
-    <style>
-        .modal1 {
-            /*display: none;  Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
 
-        .loader {
-            position: fixed;
-            left: 40%;
-            top: 35%;
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid blue;
-            border-bottom: 16px solid blue;
-            width: 160px;
-            height: 160px;
-            -webkit-animation: spin 2s linear infinite;
-            animation: spin 2s linear infinite;
-        }
+                <style>
+                    .modal1 {
+                        /*display: none;  Hidden by default */
+                        position: fixed; /* Stay in place */
+                        z-index: 1; /* Sit on top */
+                        left: 0;
+                        top: 0;
+                        width: 100%; /* Full width */
+                        height: 100%; /* Full height */
+                        overflow: auto; /* Enable scroll if needed */
+                        background-color: rgb(0,0,0); /* Fallback color */
+                        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                    }
 
-        @-webkit-keyframes spin {
-            0% { -webkit-transform: rotate(0deg); }
-            100% { -webkit-transform: rotate(360deg); }
-        }
+                    .loader {
+                        position: fixed;
+                        left: 40%;
+                        top: 35%;
+                        border: 16px solid #f3f3f3;
+                        border-radius: 50%;
+                        border-top: 16px solid blue;
+                        border-bottom: 16px solid blue;
+                        width: 160px;
+                        height: 160px;
+                        -webkit-animation: spin 2s linear infinite;
+                        animation: spin 2s linear infinite;
+                    }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+                    @-webkit-keyframes spin {
+                        0% { -webkit-transform: rotate(0deg); }
+                        100% { -webkit-transform: rotate(360deg); }
+                    }
 
-</head>
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                </style>
 
-<body>
-<div class="modal1" id="myModal">
-    <div class="loader" id="loa"></div>
+                <div class="modal1" id="myModal">
+                    <div class="loader" id="loa"></div>
+                </div>
+
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
 </div>
-</body>
-</html>

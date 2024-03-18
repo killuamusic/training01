@@ -26,12 +26,12 @@ public class login {
 
     @GetMapping("/home")
     String showHeome(HttpSession session) {
-        System.out.println("session : "+session.getAttribute("username"));
+        System.out.println("session : " + session.getAttribute("username"));
         return "home";
     }
 
     @GetMapping("/logout")
-    String logout(HttpSession session){
+    String logout(HttpSession session) {
         // ลบ session attribute ที่เกี่ยวข้องกับการล็อกอินออกไป
 //        session.removeAttribute("username");
         // ลบ session ทั้งหมดออกจาก server
