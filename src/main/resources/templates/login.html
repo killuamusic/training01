@@ -20,6 +20,13 @@
                     <div class='alert alert-error' th:unless="${relogin == null}">
                         <button type='button' class='close' data-dismiss='alert'>×</button>
                         <strong th:text="${relogin}">You don't have permission to access.</strong>
+                        <!-- login OK -->
+                        <div th:if="${relogin == 'ok'}">
+                            <script th:inline="javascript">
+                                window.location.href = '/home';
+                            </script>
+                        </div>
+                        <!-- End login OK -->
                     </div>
                     <!-- End login error -->
 
@@ -31,13 +38,13 @@
                             <div class="control-group">
                                 <div class="controls row-fluid">
                                     <input class="span12" type="text" name="inputUsername" id="inputUsername"
-                                           placeholder="Username" th:field="*{user}">
+                                           placeholder="Username" th:field="*{uName}">
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="controls row-fluid">
                                     <input class="span12" type="password" name="inputPassword" id="inputPassword"
-                                           placeholder="Password" th:field="*{pass}">
+                                           placeholder="Password" th:field="*{uPass}">
                                 </div>
                             </div>
                         </div>
