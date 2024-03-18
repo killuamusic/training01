@@ -1,6 +1,9 @@
 package com.example.training01.services.login;
 
 
+import com.example.training01.model.HrData.HRData;
+import com.example.training01.model.login.UserData;
+import com.example.training01.model.login.UserLogin;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 

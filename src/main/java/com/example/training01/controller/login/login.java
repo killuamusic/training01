@@ -54,28 +54,28 @@ public class login {
 
 //        model.addAttribute("noti_m", "Message.");
 
-        if (userlogin.getUser() == null) {
+        if (userlogin.getUName() == null) {
 
             model.addAttribute("relogin", "no_user");
 
             return "login";
         }
 
-        if (userlogin.getUser().equalsIgnoreCase("")){
+        if (userlogin.getUName().equalsIgnoreCase("")){
 
             model.addAttribute("relogin", "Please enter a Username.");
 
             return "login";
         }
 
-        if (userlogin.getPass().equalsIgnoreCase("")){
+        if (userlogin.getUPass().equalsIgnoreCase("")){
 
             model.addAttribute("relogin", "Please enter a Password.");
 
             return "login";
         }
 
-        if (userlogin.getUser().equalsIgnoreCase("pa") && userlogin.getPass().equalsIgnoreCase("01")){
+        if (userlogin.getUName().equalsIgnoreCase("pa") && userlogin.getUPass().equalsIgnoreCase("01")){
 
             model.addAttribute("relogin", "ok");
 
