@@ -1,6 +1,6 @@
 package com.example.training01.controller.login;
 
-import com.example.training01.model.UserLogin;
+import com.example.training01.model.login.UserLogin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;

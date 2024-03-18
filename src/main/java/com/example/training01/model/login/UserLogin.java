@@ -1,4 +1,4 @@
-package com.example.training01.model;
+package com.example.training01.model.login;
 
 import lombok.Data;
 
