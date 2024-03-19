@@ -10,7 +10,7 @@
     </style>
 
     <!-- if session -->
-    <div th:if="${session.username == null}">
+    <div th:if="${session.is_login == null}">
         <script th:inline="javascript">
             window.location.href = '/';
         </script>

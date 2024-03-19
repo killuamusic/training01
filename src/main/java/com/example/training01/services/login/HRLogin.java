@@ -102,9 +102,17 @@ public class HRLogin {
 
         System.out.println(datajson.getCode());
         System.out.println(datajson.getDescription());
+
         System.out.println(datajson.getData().getEngfirstname());
 
+        user.setUID(datajson.getData().getEmployeeid());
+        user.setUName(datajson.getData().getLoginname());
+        user.setFirstname(datajson.getData().getEngfirstname());
+        user.setLastname(datajson.getData().getEnglastname());
+        user.setImage(datajson.getData().getImage());
+        user.setEmail(datajson.getData().getEmail());
         user.setUID(datajson.getData().getEmplid());
+        user.setLogin(true);
 
 /*
 //        try {

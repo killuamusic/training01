@@ -1,5 +1,6 @@
 package com.example.training01.controller.login;
 
+import com.example.training01.model.login.UserData;
 import com.example.training01.model.login.UserLogin;
 import com.example.training01.services.login.HRLogin;
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +27,7 @@ public class login {
 
     @GetMapping("/home")
     String showHeome(HttpSession session) {
-        System.out.println("session : " + session.getAttribute("username"));
+        System.out.println("session : " + session.getAttribute("is_login"));
         return "home";
     }
 
@@ -48,8 +49,11 @@ public class login {
         HRLogin login = new HRLogin();
 
         String relogin = login.checkHRLogin(userlogin);
+//        UserData uData = login.callHRLoginAPI(userlogin);
 
 //        model.addAttribute("noti_m", "Message.");
+
+//        if (uData.isLogin())
 
         switch (relogin) {
             case "null":
@@ -66,7 +70,8 @@ public class login {
                 break;
             case "ok":
                 model.addAttribute("relogin", "ok");
-                session.setAttribute("username", "login_ok");
+                session.setAttribute("is_login", true);
+//                session.setAttribute("is_login", uData.isLogin());
                 break;
             default:
                 model.addAttribute("relogin", "Error.");
