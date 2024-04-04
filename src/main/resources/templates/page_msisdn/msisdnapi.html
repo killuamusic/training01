@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+
+    <style>
+        .mag-icon-info {
+            margin-left: 10px;
+        }
+        #alertinputmsisdn ,#alertradio ,#alertinputpool {
+            margin-right: 60%;
+        }
+        #alertinputnote {
+            margin-right: 34%;
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+        .radio {
+            margin-right: 74%;
+            display: inline-table;
+        }
+    </style>
+
+    <!-- session -->
+    <div th:if="${session.is_login == null}">
+        <script th:inline="javascript">
+            window.location.href = '/';
+        </script>
+    </div>
+    <!-- session -->
+
+    <div class="modal-loader" id="myModalLoader">
+        <div class="loader"></div>
+    </div>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+                <div class="span9">
+                    <div class="content">
+                        <div class="module animate-top">
+                            <div class="module-head">
+                                <h3><i class="icon-desktop"></i> MSISDN API </h3>
+                            </div>
+
+                            <div class="module-body">
+
+                                <form class="form-horizontal row-fluid" id="msisdnForm" method="post"
+                                      action="/msisdnapi">
+
+                                    <input type="hidden" name="page" id="page" value="msisdnapi">
+
+                                    <div class="control-group">
+                                        <label class="control-label">MSISDN</label>
+                                        <div class="controls">
+                                            <div id="alertinputmsisdn"></div>
+                                            <textarea name="inputmsisdn" id="inputmsisdn" class="span5" rows="3"
+                                                      placeholder="Enter MSISDN here..." onblur="myFunctionTextMsisdn()"
+                                                      oninput="this.value = this.value.replace(/[^0-9\n]/g, '').replace(/(\..*)\./g, '$1');"></textarea>
+                                            <i class="icon-info-sign text-info mag-icon-info"
+                                               title="ใส่ได้เป็นตัวเลข MSISDN หลายเบอร์ได้ &#010; เช่น &#010; 0XXXXXXXXX &#010; 0XXXXXXXXX"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">API</label>
+                                        <div class="controls">
+                                            <div id="alertradio"></div>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI01"
+                                                       value="MsisdnAPI_01" onclick="myFunctionRadio()">
+                                                Load.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI02"
+                                                       value="MsisdnAPI_02" onclick="myFunctionRadio()">
+                                                UnLoad.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI03"
+                                                       value="MsisdnAPI_03" onclick="myFunctionRadio()">
+                                                De-Assign.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI04"
+                                                       value="MsisdnAPI_04" onclick="myFunctionRadio()">
+                                                Lock.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI05"
+                                                       value="MsisdnAPI_05" onclick="myFunctionRadio()">
+                                                UnLock.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI06"
+                                                       value="MsisdnAPI_06" onclick="myFunctionRadio()">
+                                                Reserve.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI07"
+                                                       value="MsisdnAPI_07" onclick="myFunctionRadio()">
+                                                OM Release.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI08"
+                                                       value="MsisdnAPI_08" onclick="myFunctionRadio()">
+                                                Activate.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI09"
+                                                       value="MsisdnAPI_09" onclick="myFunctionRadio()">
+                                                Release.<i class="icon-info-sign text-info mag-icon-info"
+                                                           title="Cancel MSISDN"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI10"
+                                                       value="MsisdnAPI_10" onclick="myFunctionRadio()">
+                                                Override.<i class="icon-info-sign text-info mag-icon-info"
+                                                            title="Call API AGE OUT"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI11"
+                                                       value="MsisdnAPI_11" onclick="myFunctionRadio()">
+                                                Release Owner.<i class="icon-info-sign text-info mag-icon-info"
+                                                                 title="ยกเลิกจองของ Owner"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI12"
+                                                       value="MsisdnAPI_12" onclick="myFunctionRadio()">
+                                                Assign Owner.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="Assign เข้า Owner หรือพวก UR Type3 (เบอร์ต้องจองอยู่เป็น Status [OWNER LOCK] เท่านั้น)"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI13"
+                                                       value="MsisdnAPI_13" onclick="myFunctionRadio()">
+                                                Update POOL Temp.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="เบอร์ต้องเป็น Status [PORT RETURN] เท่านั้น ถ้าเป็น AGING ให้ทำ Override ก่อน"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI14"
+                                                       value="MsisdnAPI_14" onclick="myFunctionRadio()">
+                                                Delete MSISDN Note.
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div id="alertinputpool"></div>
+                                            <div class="input-prepend">
+                                                <span class="add-on">Pool ID</span>
+                                                <input class="span2" type="text" name="inpool" id="inpool" maxlength="3"
+                                                       placeholder="ID" onblur="myFunctionTextPool()"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                       disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="radio ">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI15"
+                                                       value="MsisdnAPI_15" onclick="myFunctionRadio()">
+                                                Assign.
+                                            </label>
+                                            <label class="radio ">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI16"
+                                                       value="MsisdnAPI_16" onclick="myFunctionRadio()">
+                                                Re-Assign.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI17"
+                                                       value="MsisdnAPI_17" onclick="myFunctionRadio()">
+                                                Reserve Owner.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="จองเบอร์ หรือทำ UR Type 2"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="radio ">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI18"
+                                                       value="MsisdnAPI_18" onclick="myFunctionRadio()">
+                                                Update MSISDN Note.
+                                            </label>
+
+                                            <div id="alertinputnote"></div>
+                                            <input type="text" name="innote" id="innote"
+                                                   placeholder="Enter MSISDN Note here..." class="span8"
+                                                   onblur="myFunctionTextNote()" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend" style="margin-left: 15%;">
+                                                <button type="button" class="btn btn-inverse"
+                                                        onclick="myFunctionSubmit()">Submit API
+                                                </button>
+                                            </div>
+
+                                            <div class="input-prepend inline" style="margin-left: 20px;">
+                                                <button type="reset" class="btn btn-inverse"
+                                                        onclick="myFunctionReset()">Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <!--/form-->
+                            </div>
+                            <!--/.module-body-->
+                        </div>
+                        <!--/.module-->
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+    <script>
+        var radioChecked = false;
+        const alertElementIdMsisdn = "alertinputmsisdn";
+        const alertElementIdRadio = "alertradio";
+        const alertElementIdPool = "alertinputpool";
+        const alertElementIdNote = "alertinputnote";
+        function myFunctionRadio() {
+            var radiopool1 = document.getElementById("msisdnAPI15");
+            var radiopool2 = document.getElementById("msisdnAPI16");
+            var radiopool3 = document.getElementById("msisdnAPI17");
+            var radionote1 = document.getElementById("msisdnAPI18");
+
+            if (radiopool1.checked || radiopool2.checked || radiopool3.checked) {
+                document.getElementById("inpool").disabled = false;
+                myFunctionAlertOFF(alertElementIdPool);
+            } else {
+                document.getElementById("inpool").value = "";
+                document.getElementById("inpool").disabled = true;
+                myFunctionAlertOFF(alertElementIdPool);
+            }
+
+            if (radionote1.checked) {
+                document.getElementById("innote").disabled = false;
+            } else {
+                document.getElementById("innote").value = "";
+                document.getElementById("innote").disabled = true;
+                myFunctionAlertOFF(alertElementIdNote);
+            }
+
+
+            myFunctionAlertOFF(alertElementIdRadio);
+        }
+
+        function myFunctionTextMsisdn() {
+            if (document.getElementById("inputmsisdn").value === "") {
+                myFunctionAlertON(alertElementIdMsisdn);
+            } else {
+                myFunctionAlertOFF(alertElementIdMsisdn);
+            }
+        }
+
+        function myFunctionTextNote() {
+            if (document.getElementById("innote").value === "") {
+                myFunctionAlertON(alertElementIdNote);
+            } else {
+                myFunctionAlertOFF(alertElementIdNote);
+            }
+        }
+
+        function myFunctionTextPool() {
+            if (document.getElementById("inpool").value === "") {
+                myFunctionAlertON(alertElementIdPool);
+            } else {
+                myFunctionAlertOFF(alertElementIdPool);
+            }
+        }
+
+        function myFunctionReset() {
+            document.getElementById("innote").disabled = true;
+            document.getElementById("inpool").disabled = true;
+            myFunctionAlertOFF(alertElementIdMsisdn);
+            myFunctionAlertOFF(alertElementIdRadio);
+            myFunctionAlertOFF(alertElementIdNote);
+            myFunctionAlertOFF(alertElementIdPool);
+            radioChecked = false;
+            window.scrollTo(0, 0);
+        }
+
+        function myFunctionSubmit() {
+            var gogo = [false, false, false, false]; // [0]msisdn,[1]radio,[2]note,[3]pool
+
+            // msisdn
+            if (document.getElementById("inputmsisdn").value === "") {
+                myFunctionAlertON(alertElementIdMsisdn);
+            } else {
+                myFunctionAlertOFF(alertElementIdMsisdn);
+                gogo[0] = true;
+            }
+
+            // api radio
+            const radioname = document.getElementsByName("msisdnAPI");
+    //        radioname.forEach(item => alert(item.checked));
+            radioname.forEach(arrradioname);
+            if (radioChecked) {
+                myFunctionAlertOFF(alertElementIdRadio);
+                gogo[1] = true;
+            } else {
+                myFunctionAlertON(alertElementIdRadio);
+            }
+
+            // msisdn note
+            var radionote1 = document.getElementById("msisdnAPI18");
+
+            if (document.getElementById("innote").value === "" && (radionote1.checked)) {
+                myFunctionAlertON(alertElementIdNote);
+            } else {
+                myFunctionAlertOFF(alertElementIdNote);
+                gogo[2] = true;
+            }
+
+            // pool
+            var radiopool1 = document.getElementById("msisdnAPI15");
+            var radiopool2 = document.getElementById("msisdnAPI16");
+            var radiopool3 = document.getElementById("msisdnAPI17");
+
+            if (document.getElementById("inpool").value === "" && (radiopool1.checked || radiopool2.checked || radiopool3.checked)) {
+                myFunctionAlertON(alertElementIdPool);
+            } else {
+                myFunctionAlertOFF(alertElementIdPool);
+                gogo[3] = true;
+            }
+
+            if (gogo[0] && gogo[1] && gogo[2] && gogo[3]) {
+                document.getElementById("msisdnForm").submit();
+                document.getElementById("myModalLoader").style.display = "block";
+            }
+        }
+
+        function arrradioname(item) {
+            if (item.checked) {
+                radioChecked = true;
+            }
+        }
+
+        function myFunctionAlertON(element) {
+            var scr = "";
+
+            if (element === alertElementIdMsisdn) {
+                scr = "เบอร์";
+            }
+            if (element === alertElementIdRadio) {
+                scr = "เลือก API.";
+            }
+            if (element === alertElementIdNote) {
+                scr = "Note.";
+            }
+            if (element === alertElementIdPool) {
+                scr = "POOL.";
+            }
+
+            document.getElementById(element).innerHTML = "\
+                    <div class='alert alert-error'>\
+                        <button type='button' class='close' data-dismiss='alert'>×</button>\
+                        <strong>ลืม! " + scr + "</strong> จำเป็นจ้า \
+                    </div>";
+
+            if (element === alertElementIdMsisdn || element === alertElementIdRadio) {
+                window.scrollTo(0, 0);
+            } else {
+                document.getElementById(element).scrollIntoView();
+            }
+        }
+
+        function myFunctionAlertOFF(element) {
+            document.getElementById(element).innerHTML = "";
+        }
+    </script>
+
+</div>

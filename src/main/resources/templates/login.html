@@ -10,7 +10,7 @@
                 <div class="module module-login span4 offset4">
 
                     <!-- if session -->
-                    <div th:if="${session.is_login != null}">
+                    <div th:if="${session.is_login != null and session.is_login == true}">
                         <script th:inline="javascript">
                             window.location.href = '/home';
                         </script>
@@ -28,7 +28,7 @@
                         <button type='button' class='close' data-dismiss='alert'>×</button>
                         <strong th:text="${relogin}">You don't have permission to access.</strong>
                         <!-- login OK -->
-                        <div th:if="${relogin == 'ok'}">
+                        <div th:if="${relogin == 'ok_go'}">
                             <script th:inline="javascript">
                                 window.location.href = '/home';
                             </script>
@@ -45,13 +45,13 @@
                             <div class="control-group">
                                 <div class="controls row-fluid">
                                     <input class="span12" type="text" name="inputUsername" id="inputUsername"
-                                           placeholder="Username" th:field="*{uName}">
+                                           placeholder="Username" th:field="*{uName}" required>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="controls row-fluid">
                                     <input class="span12" type="password" name="inputPassword" id="inputPassword"
-                                           placeholder="Password" th:field="*{uPass}">
+                                           placeholder="Password" th:field="*{uPass}" th:required="true">
                                 </div>
                             </div>
                         </div>

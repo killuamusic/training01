@@ -9,12 +9,13 @@
         }
     </style>
 
-    <!-- if session -->
+    <!-- session -->
     <div th:if="${session.is_login == null}">
         <script th:inline="javascript">
             window.location.href = '/';
         </script>
     </div>
+    <!-- session -->
 
     <div class="modal-loader" id="myModalLoader">
         <div class="loader"></div>
@@ -36,12 +37,12 @@
 
                         <div class="btn-controls animate-bottom-2">
                             <div class="btn-box-row row-fluid">
-                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnall.jsp"
+                                <a href="/msisdnall"
                                    class="btn-box big span6" onclick="goLoad()">
                                     <i class="icon-desktop"></i>
                                     <b>MSISDN</b>
                                 </a>
-                                <a href="<%=request.getContextPath()%>/sim_jsp/simall.jsp" class="btn-box big span6"
+                                <a href="/simall" class="btn-box big span6"
                                    onclick="goLoad()">
                                     <i class="icon-desktop"></i>
                                     <b>SIM</b>
@@ -49,22 +50,22 @@
                             </div>
 
                             <div class="btn-box-row row-fluid">
-                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnapi.jsp"
+                                <a href="/msisdnapi"
                                    class="btn-box big span3" onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>MSISDN API</b>
                                 </a>
-                                <a href="<%=request.getContextPath()%>/msisdn_jsp/msisdnmnp.jsp"
+                                <a href="/msisdnmnp"
                                    class="btn-box big span3" onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>MSISDN MNP</b>
                                 </a>
-                                <a href="<%=request.getContextPath()%>/sim_jsp/simself.jsp" class="btn-box big span3"
+                                <a href="/simself" class="btn-box big span3"
                                    onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>SIM Self</b>
                                 </a>
-                                <a href="<%=request.getContextPath()%>/sim_jsp/simpair.jsp" class="btn-box big span3"
+                                <a href="/simpair" class="btn-box big span3"
                                    onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>SIM Pair</b>
@@ -80,12 +81,12 @@
 
                         <div class="btn-controls animate-bottom-2">
                             <div class="btn-box-row row-fluid">
-                                <a class="btn-box big span6" href="msisdn_jsp/msisdnlifecycle.jsp" onclick="goLoad()">
-                                    <img src="images/MSISDN Life Cycle.jpg">
+                                <a class="btn-box big span6" href="/msisdnlife" onclick="goLoad()">
+                                    <img src="/images/MSISDN Life Cycle.jpg">
                                     <b>MSISDN Life Cycle</b>
                                 </a>
-                                <a class="btn-box big span6" href="sim_jsp/simlifecycle.jsp" onclick="goLoad()">
-                                    <img src="images/SIM Life Cycle.png">
+                                <a class="btn-box big span6" href="/simlife" onclick="goLoad()">
+                                    <img src="/images/SIM Life Cycle.png">
                                     <b>SIM Life Cycle</b>
                                 </a>
                             </div>

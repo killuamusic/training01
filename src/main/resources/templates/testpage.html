@@ -10,7 +10,19 @@
                 <div th:insert="fragment/sidebar"></div>
                 <!-- sidebar -->
 
-                Fome Login....
+                <div class="span9">
+                    <div class="content">
+
+                        <div th:text="${session.is_login == null}"></div>
+                        <div th:text="${session.is_login == true}"></div>
+                        <div th:text="${session.is_login}"></div>
+                        <br>
+                        <b>
+                            <p th:text="'Test Text....'"></p>
+                        </b>
+
+                    </div>
+                </div>
 
             </div>
         </div>

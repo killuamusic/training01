@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+
+    <style>
+        .mag-icon-info {
+            margin-left: 10px;
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+        .radio {
+            margin-right: 50%;
+            display: inline-table;
+        }
+        #alertinputsim ,#alertradio ,#alertinputdealertype {
+            margin-right: 60%;
+        }
+        #alertinputsimnote {
+            margin-right: 34%;
+        }
+    </style>
+
+    <!-- session -->
+    <div th:if="${session.is_login == null}">
+        <script th:inline="javascript">
+            window.location.href = '/';
+        </script>
+    </div>
+    <!-- session -->
+
+    <div class="modal-loader" id="myModalLoader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+                <div class="span9">
+                    <div class="content">
+                        <div class="module animate-top">
+                            <div class="module-head">
+                                <h3><i class="icon-desktop"></i> Multiple SIM API Calls </h3>
+                            </div>
+
+                            <div class="module-body">
+
+                                <form class="form-horizontal row-fluid" id="simForm" method="post"
+                                      action="/simall">
+
+                                    <input type="hidden" name="page" id="page" value="simall">
+
+                                    <div class="control-group">
+                                        <label class="control-label">SIM Serial</label>
+                                        <div class="controls">
+                                            <div id="alertinputsim"></div>
+                                            <textarea name="inputsim" id="inputsim" class="span5" rows="3"
+                                                      placeholder="Enter ICCID here..." onblur="myFunctionTextSIM()"
+                                                      oninput="this.value = this.value.replace(/[^0-9\n]/g, '').replace(/(\..*)\./g, '$1');"></textarea>
+                                            <i class="icon-info-sign text-info mag-icon-info"
+                                               title="ใส่ได้เป็นตัวเลข ICCID หลาย SIM ได้ &#010; เช่น &#010; 896600XXXXXXXXXXXX &#010; 896604XXXXXXXXXXXX"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">API</label>
+                                        <div class="controls">
+                                            <div id="alertradio"></div>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI01" value="simAPI01"
+                                                       onclick="myFunctionRadio()">
+                                                Override.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI02" value="simAPI02"
+                                                       onclick="myFunctionRadio()">
+                                                Release. <i class="icon-info-sign text-info mag-icon-info"
+                                                            title="Cancel SIM Self"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI03" value="simAPI03"
+                                                       onclick="myFunctionRadio()">
+                                                Age Out.
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI04" value="simAPI04"
+                                                       onclick="myFunctionRadio()">
+                                                Change SIM Owner.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI05" value="simAPI05"
+                                                       onclick="myFunctionRadio()">
+                                                Change SIM Type.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI06" value="simAPI06"
+                                                       onclick="myFunctionRadio()">
+                                                Change SIM Owner & Change SIM Type.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI07" value="simAPI07"
+                                                       onclick="myFunctionRadio()">
+                                                Override <i class="icon-arrow-right"></i> Change SIM Owner & Change SIM
+                                                Type.
+                                            </label>
+                                        </div>
+
+                                        <div class="controls">
+                                            <div id="alertinputdealertype"></div>
+                                            <div class="input-prepend">
+                                                <span class="add-on">Dealer</span>
+                                                <input class="span2" type="text" name="indealer" id="indealer"
+                                                       maxlength="8" placeholder="00000000" onblur="myFunctionTextD()"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                       style="margin-right: 10px;" disabled>
+
+                                                <span class="add-on">SIM Type</span>
+                                                <input class="span1" type="text" name="intype" id="intype" maxlength="1"
+                                                       placeholder="0" onblur="myFunctionTextT()"
+                                                       oninput="this.value = this.value.replace(/[^1-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                       disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" name="simAPI" id="simAPI08" value="simAPI08"
+                                                       onclick="myFunctionRadio()">
+                                                Update SIM Note.
+                                            </label>
+
+                                            <div id="alertinputsimnote"></div>
+                                            <input class="span8" type="text" name="insimnote" id="insimnote"
+                                                   placeholder="Enter SIM Note here..." onblur="myFunctionTextNote()"
+                                                   disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend" style="margin-left: 15%;">
+                                                <button type="button" class="btn btn-inverse"
+                                                        onclick="myFunctionSubmit()">Submit API
+                                                </button>
+                                            </div>
+
+                                            <div class="input-prepend inline" style="margin-left: 20px;">
+                                                <button type="reset" class="btn btn-inverse"
+                                                        onclick="myFunctionReset()">Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <!--/form-->
+                            </div>
+                            <!--/.module-body-->
+                        </div>
+                        <!--/.module-->
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+    <script>
+        var radioChecked = false;
+        var alertDivIdInputSIM = "alertinputsim";
+        var alertDivIdRadio = "alertradio";
+        var alertDivIdInputDT = "alertinputdealertype";
+        var alertIdInputNote = "alertinputsimnote";
+
+        function myFunctionRadio() {
+            var radioCSO = document.getElementById("simAPI04");
+            var radioCST = document.getElementById("simAPI05");
+            var radioCSOT = document.getElementById("simAPI06");
+            var radioOCSOT = document.getElementById("simAPI07");
+            var radioNote = document.getElementById("simAPI08");
+            var inputDealer = document.getElementById("indealer");
+            var inputType = document.getElementById("intype");
+            var inputNote = document.getElementById("insimnote");
+
+            if (radioCSO.checked) {
+                inputDealer.disabled = false;
+                inputType.disabled = true;
+                inputType.value = "";
+                myFunctionAlertOFF(alertDivIdInputDT);
+            } else if (radioCST.checked) {
+                inputDealer.disabled = true;
+                inputType.disabled = false;
+                inputDealer.value = "";
+                myFunctionAlertOFF(alertDivIdInputDT);
+            } else if (radioCSOT.checked || radioOCSOT.checked) {
+                inputDealer.disabled = false;
+                inputType.disabled = false;
+                myFunctionAlertOFF(alertDivIdInputDT);
+            } else {
+                inputDealer.disabled = true;
+                inputType.disabled = true;
+                inputDealer.value = "";
+                inputType.value = "";
+                myFunctionAlertOFF(alertDivIdInputDT);
+            }
+
+            if (radioNote.checked) {
+                inputNote.disabled = false;
+            } else {
+                inputNote.disabled = true;
+                inputNote.value = "";
+                myFunctionAlertOFF(alertIdInputNote);
+            }
+            myFunctionAlertOFF(alertDivIdRadio);
+        }
+
+        function myFunctionTextSIM() {
+            if (document.getElementById("inputsim").value === "") {
+                myFunctionAlertON(alertDivIdInputSIM);
+            } else {
+                myFunctionAlertOFF(alertDivIdInputSIM);
+            }
+        }
+
+        function myFunctionTextD() {
+            if (document.getElementById("indealer").value === "") {
+                myFunctionAlertON(alertDivIdInputDT);
+            } else {
+                myFunctionAlertOFF(alertDivIdInputDT);
+            }
+        }
+
+        function myFunctionTextT() {
+            if (document.getElementById("intype").value === "") {
+                myFunctionAlertON(alertDivIdInputDT);
+            } else {
+                myFunctionAlertOFF(alertDivIdInputDT);
+            }
+        }
+
+        function myFunctionTextNote() {
+            if (document.getElementById("insimnote").value === "") {
+                myFunctionAlertON(alertIdInputNote);
+            } else {
+                myFunctionAlertOFF(alertIdInputNote);
+            }
+        }
+
+        function myFunctionReset() {
+            radioChecked = false;
+            document.getElementById("indealer").disabled = true;
+            document.getElementById("intype").disabled = true;
+            document.getElementById("insimnote").disabled = true;
+            myFunctionAlertOFF(alertDivIdInputSIM);
+            myFunctionAlertOFF(alertDivIdInputDT);
+            myFunctionAlertOFF(alertIdInputNote);
+            window.scrollTo(0, 0);
+        }
+
+        function myFunctionSubmit() {
+            var gogo = [false, false, false, false]; // [input sim],[api radio],[input dealer type],[sim note]
+            var radioCSO = document.getElementById("simAPI04");
+            var radioCST = document.getElementById("simAPI05");
+            var radioCSOT = document.getElementById("simAPI06");
+            var radioOCSOT = document.getElementById("simAPI07");
+            var radioNote = document.getElementById("simAPI08");
+            var inputSIM = document.getElementById("inputsim");
+            var inputDealer = document.getElementById("indealer");
+            var inputType = document.getElementById("intype");
+            var inputNote = document.getElementById("insimnote");
+
+            // input sim
+            if (inputSIM.value === "") {
+                myFunctionAlertON(alertDivIdInputSIM);
+            } else {
+                myFunctionAlertOFF(alertDivIdInputSIM);
+                gogo[0] = true;
+            }
+
+            // api radio
+            const radioname = document.getElementsByName("simAPI");
+            radioname.forEach(arrradioname);
+            if (radioChecked) {
+                myFunctionAlertOFF(alertDivIdRadio);
+                gogo[1] = true;
+            } else {
+                myFunctionAlertON(alertDivIdRadio);
+            }
+
+            // input dealer type
+            if ((inputDealer.value === "" && radioCSO.checked) || (inputDealer.value === "" && (radioCSOT.checked || radioOCSOT.checked))
+                    || (inputType.value === "" && radioCST.checked) || (inputType.value === "" && (radioCSOT.checked || radioOCSOT.checked))) {
+                myFunctionAlertON(alertDivIdInputDT);
+            } else {
+                myFunctionAlertOFF(alertDivIdInputDT);
+                gogo[2] = true;
+            }
+
+            // sim note
+            if (inputNote.value === "" && radioNote.checked) {
+                myFunctionAlertON(alertIdInputNote);
+            } else {
+                myFunctionAlertOFF(alertIdInputNote);
+                gogo[3] = true;
+            }
+
+            // go go
+            if (gogo[0] && gogo[1] && gogo[2] && gogo[3]) {
+                document.getElementById("simForm").submit();
+                document.getElementById("myModalLoader").style.display = "block";
+            }
+        }
+
+        function arrradioname(item) {
+            if (item.checked) {
+                radioChecked = true;
+            }
+        }
+
+        function myFunctionAlertON(element) {
+            var scr = "";
+
+            if (element === alertDivIdInputSIM) {
+                scr = "ต้องมี SIM Serial";
+            }
+            if (element === alertDivIdRadio) {
+                scr = "ต้องเลือก API";
+            }
+            if (element === alertDivIdInputDT) {
+                scr = "ต้องใส่ให้ครบด้วย";
+            }
+            if (element === alertIdInputNote) {
+                scr = "ต้องใส่ Note ให้ด้วย";
+            }
+
+            document.getElementById(element).innerHTML = "\
+                    <div class='alert alert-error'>\
+                        <button type='button' class='close' data-dismiss='alert'>×</button>\
+                        <strong>จำเป็น !</strong> " + scr + " จ้า \
+                    </div>";
+
+            if (element === alertDivIdInputSIM || element === alertDivIdRadio) {
+                window.scrollTo(0, 0);
+            } else {
+                document.getElementById(element).scrollIntoView();
+            }
+        }
+
+        function myFunctionAlertOFF(element) {
+            document.getElementById(element).innerHTML = "";
+        }
+    </script>
+
+</div>

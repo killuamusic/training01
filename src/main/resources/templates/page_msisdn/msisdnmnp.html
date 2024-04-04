@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+
+    <style>
+        .mag-icon-info {
+            margin-left: 10px;
+        }
+        #alertinputmsisdn ,#alertradio ,#alertinputrcp {
+            margin-right: 60%;
+        }
+        #alertinputport {
+            margin-right: 55%;
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+        .radio {
+            margin-right: 75%;
+            display: inline-table;
+        }
+    </style>
+
+    <!-- session -->
+    <div th:if="${session.is_login == null}">
+        <script th:inline="javascript">
+            window.location.href = '/';
+        </script>
+    </div>
+    <!-- session -->
+
+    <div class="modal-loader" id="myModalLoader">
+        <div class="loader"></div>
+    </div>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+                <div class="span9">
+                    <div class="content">
+                        <div class="module animate-top">
+                            <div class="module-head">
+                                <h3><i class="icon-desktop"></i> MSISDN API MNP </h3>
+                            </div>
+
+                            <div class="module-body">
+
+                                <form class="form-horizontal row-fluid" id="msisdnForm" method="post"
+                                      action="/msisdnmnp">
+
+                                    <input type="hidden" name="page" id="page" value="msisdnmnp">
+
+                                    <div class="control-group">
+                                        <label class="control-label">MSISDN</label>
+                                        <div class="controls">
+                                            <div id="alertinputmsisdn"></div>
+                                            <textarea name="inputmsisdn" id="inputmsisdn" class="span5" rows="3"
+                                                      placeholder="Enter MSISDN here..." onblur="myFunctionTextMsisdn()"
+                                                      oninput="this.value = this.value.replace(/[^0-9\n]/g, '').replace(/(\..*)\./g, '$1');"></textarea>
+                                            <i class="icon-info-sign text-info mag-icon-info"
+                                               title="ใส่ได้เป็นตัวเลข MSISDN หลายเบอร์ได้ &#010; เช่น &#010; 0XXXXXXXXX &#010; 0XXXXXXXXX"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">API</label>
+                                        <div class="controls">
+                                            <div id="alertradio"></div>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI01"
+                                                       value="MsisdnAPI_01" onclick="myFunctionRadio()">
+                                                Clear.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องเป็น Status 'PORT RETURN'"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI02"
+                                                       value="MsisdnAPI_02" onclick="myFunctionRadio()">
+                                                Port Out.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องเป็น Status 'PORT OUT AG'"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div id="alertinputrcp"></div>
+                                            <div class="input-prepend">
+                                                <span class="add-on" title="RCP Operator">RCP</span>
+                                                <input class="span2" type="text" name="inrcp" id="inrcp" maxlength="2"
+                                                       placeholder="00" title="RCP Operator"
+                                                       onblur="myFunctionTextrcp()"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                       disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI03"
+                                                       value="MsisdnAPI_03" onclick="myFunctionRadio()">
+                                                Port Out Reverse.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องเป็น Status 'PORT OUT AG' ยิงแล้วจะเป็น Active"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls" style="margin-bottom: 5px;">
+                                            <div id="alertinputport"></div>
+                                            <span class="add-on">Donor Operator</span>
+                                            <input class="span1" type="text" name="indonoroperator" id="indonoroperator"
+                                                   maxlength="2" placeholder="00"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                   onblur="myFunctionTextPort()"
+                                                   style="padding-left: 12px; margin-left: 5px; margin-right: 10px;"
+                                                   disabled>
+
+                                            <span class="add-on">Donor Zone</span>
+                                            <input class="span1" type="text" name="indonorzone" id="indonorzone"
+                                                   maxlength="1" placeholder="0"
+                                                   oninput="this.value = this.value.replace(/[^1-7]/g, '').replace(/(\..*)\./g, '$1');"
+                                                   onblur="myFunctionTextPort()"
+                                                   style="padding-left: 15px; margin-left: 5px;" disabled>
+                                        </div>
+                                        <div class="controls">
+                                            <span class="add-on">RCP Operator</span>
+                                            <input class="span1" type="text" name="inrcpoperator" id="inrcpoperator"
+                                                   maxlength="2" placeholder="00"
+                                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                   onblur="myFunctionTextPort()"
+                                                   style="padding-left: 12px; margin-left: 19px; margin-right: 10px;"
+                                                   disabled>
+
+                                            <span class="add-on">RCP Zone</span>
+                                            <input class="span1" type="text" name="inrcpzone" id="inrcpzone"
+                                                   maxlength="1" placeholder="0"
+                                                   oninput="this.value = this.value.replace(/[^1-7]/g, '').replace(/(\..*)\./g, '$1');"
+                                                   onblur="myFunctionTextPort()"
+                                                   style="padding-left: 15px; margin-left: 19px;" disabled>
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="radio ">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI04"
+                                                       value="MsisdnAPI_04" onclick="myFunctionRadio()">
+                                                Port Out Release.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องเป็น Status 'ACTIVE' ยิงแล้วจะเป็น 'PORT OUT AG'"></i>
+                                            </label>
+                                            <label class="radio ">
+                                                <input type="radio" name="msisdnAPI" id="msisdnAPI05"
+                                                       value="MsisdnAPI_05" onclick="myFunctionRadio()">
+                                                Port In.
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend" style="margin-left: 15%;">
+                                                <button type="button" class="btn btn-inverse"
+                                                        onclick="myFunctionSubmit()">Submit API
+                                                </button>
+                                            </div>
+
+                                            <div class="input-prepend inline" style="margin-left: 20px;">
+                                                <button type="reset" class="btn btn-inverse"
+                                                        onclick="myFunctionReset()">Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <!--/form-->
+                            </div>
+                            <!--/.module-body-->
+                        </div>
+                        <!--/.module-->
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+    <script>
+        var radioChecked = false;
+        var alertElementIdMsisdn = "alertinputmsisdn";
+        var alertElementIdRadio = "alertradio";
+        var alertElementIdRCP = "alertinputrcp";
+        var alertElementIdPort = "alertinputport";
+        var donoroperator = "indonoroperator";
+        var donorzone = "indonorzone";
+        var rcpoperator = "inrcpoperator";
+        var rcpzone = "inrcpzone";
+        var inputrcp = "inrcp";
+
+        function myFunctionRadio() {
+            var radiorcp = document.getElementById("msisdnAPI03");
+            var radioport1 = document.getElementById("msisdnAPI04");
+            var radioport2 = document.getElementById("msisdnAPI05");
+
+            if (radiorcp.checked) {
+                document.getElementById(inputrcp).disabled = false;
+            } else {
+                document.getElementById(inputrcp).value = "";
+                document.getElementById(inputrcp).disabled = true;
+                myFunctionAlertOFF(alertElementIdRCP);
+            }
+
+            if (radioport1.checked || radioport2.checked) {
+                document.getElementById(donoroperator).disabled = false;
+                document.getElementById(donorzone).disabled = false;
+                document.getElementById(rcpoperator).disabled = false;
+                document.getElementById(rcpzone).disabled = false;
+                myFunctionAlertOFF(alertElementIdPort);
+            } else {
+                document.getElementById(donoroperator).value = "";
+                document.getElementById(donoroperator).disabled = true;
+
+                document.getElementById(donorzone).value = "";
+                document.getElementById(donorzone).disabled = true;
+
+                document.getElementById(rcpoperator).value = "";
+                document.getElementById(rcpoperator).disabled = true;
+
+                document.getElementById(rcpzone).value = "";
+                document.getElementById(rcpzone).disabled = true;
+                myFunctionAlertOFF(alertElementIdPort);
+            }
+            myFunctionAlertOFF(alertElementIdRadio);
+        }
+
+        function myFunctionTextMsisdn() {
+            if (document.getElementById("inputmsisdn").value === "") {
+                myFunctionAlertON(alertElementIdMsisdn);
+            } else {
+                myFunctionAlertOFF(alertElementIdMsisdn);
+            }
+        }
+
+        function myFunctionTextPort() {
+            if (document.getElementById(donoroperator).value === ""
+                    || document.getElementById(donorzone).value === ""
+                    || document.getElementById(rcpoperator).value === ""
+                    || document.getElementById(rcpzone).value === "") {
+                myFunctionAlertON(alertElementIdPort);
+            } else {
+                myFunctionAlertOFF(alertElementIdPort);
+            }
+        }
+
+        function myFunctionTextrcp() {
+            if (document.getElementById(inputrcp).value === "") {
+                myFunctionAlertON(alertElementIdRCP);
+            } else {
+                myFunctionAlertOFF(alertElementIdRCP);
+            }
+        }
+
+        function myFunctionReset() {
+            document.getElementById(donoroperator).disabled = true;
+            document.getElementById(donorzone).disabled = true;
+            document.getElementById(rcpoperator).disabled = true;
+            document.getElementById(rcpzone).disabled = true;
+            document.getElementById(inputrcp).disabled = true;
+            myFunctionAlertOFF(alertElementIdMsisdn);
+            myFunctionAlertOFF(alertElementIdRadio);
+            myFunctionAlertOFF(alertElementIdPort);
+            myFunctionAlertOFF(alertElementIdRCP);
+            radioChecked = false;
+            window.scrollTo(0, 0);
+        }
+
+        function myFunctionSubmit() {
+            var gogo = [false, false, false, false]; // [0]msisdn,[1]radio,[2]note,[3]pool
+
+            // msisdn
+            if (document.getElementById("inputmsisdn").value === "") {
+                myFunctionAlertON(alertElementIdMsisdn);
+            } else {
+                myFunctionAlertOFF(alertElementIdMsisdn);
+                gogo[0] = true;
+            }
+
+            // api radio
+            const radioname = document.getElementsByName("msisdnAPI");
+    //        radioname.forEach(item => alert(item.checked));
+            radioname.forEach(arrradioname);
+            if (radioChecked) {
+                myFunctionAlertOFF(alertElementIdRadio);
+                gogo[1] = true;
+            } else {
+                myFunctionAlertON(alertElementIdRadio);
+            }
+
+            // rcp
+            var radiorcp = document.getElementById("msisdnAPI03");
+
+            if (document.getElementById(inputrcp).value === "" && (radiorcp.checked)) {
+                myFunctionAlertON(alertElementIdRCP);
+            } else {
+                myFunctionAlertOFF(alertElementIdRCP);
+                gogo[2] = true;
+            }
+
+            // port
+            var radioport1 = document.getElementById("msisdnAPI04");
+            var radioport2 = document.getElementById("msisdnAPI05");
+
+            if ((document.getElementById(donoroperator).value === ""
+                    || document.getElementById(donorzone).value === ""
+                    || document.getElementById(rcpoperator).value === ""
+                    || document.getElementById(rcpzone).value === "")
+                    && (radioport1.checked || radioport2.checked)) {
+                myFunctionAlertON(alertElementIdPort);
+            } else {
+                myFunctionAlertOFF(alertElementIdPort);
+                gogo[3] = true;
+            }
+
+            if (gogo[0] && gogo[1] && gogo[2] && gogo[3]) {
+                document.getElementById("msisdnForm").submit();
+                document.getElementById("myModalLoader").style.display = "block";
+            }
+        }
+
+        function arrradioname(item) {
+            if (item.checked) {
+                radioChecked = true;
+            }
+        }
+
+        function myFunctionAlertON(element) {
+            var scr = "";
+
+            if (element === alertElementIdMsisdn) {
+                scr = "เบอร์";
+            }
+            if (element === alertElementIdRadio) {
+                scr = "เลือก API.";
+            }
+            if (element === alertElementIdPort) {
+                scr = "Port info.";
+            }
+            if (element === alertElementIdRCP) {
+                scr = "RCP Operator.";
+            }
+
+            document.getElementById(element).innerHTML = "\
+                    <div class='alert alert-error'>\
+                        <button type='button' class='close' data-dismiss='alert'>×</button>\
+                        <strong>ลืม! " + scr + "</strong> จำเป็นจ้า \
+                    </div>";
+
+            if (element === alertElementIdMsisdn || element === alertElementIdRadio) {
+                window.scrollTo(0, 0);
+            } else {
+                document.getElementById(element).scrollIntoView();
+            }
+        }
+
+        function myFunctionAlertOFF(element) {
+            document.getElementById(element).innerHTML = "";
+        }
+    </script>
+
+</div>

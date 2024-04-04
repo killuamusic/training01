@@ -1,0 +1,472 @@
+<!--    Document   : msisdnall-->
+<!--    Created on : Mar 28, 2022, 2:53:05 PM-->
+<!--    Author     : Parami1-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<div layout:fragment="content">
+
+    <style>
+        .mag-icon-info {
+            margin-left: 10px;
+        }
+        #alertinputmsisdn ,#alertradiooptions ,#alertinputpool {
+            margin-right: 60%;
+        }
+        #alertinputnote {
+            margin-right: 34%;
+        }
+        #alertinputatt {
+            margin-right: 56%;
+        }
+        .alert {
+            margin-bottom: 10px;
+        }
+        .radio {
+            margin-right: 56%;
+            display: inline-table;
+        }
+    </style>
+
+    <!-- session -->
+    <div th:if="${session.is_login == null}">
+        <script th:inline="javascript">
+            window.location.href = '/';
+        </script>
+    </div>
+    <!-- session -->
+
+    <div class="modal-loader" id="myModalLoader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <!-- sidebar -->
+                <div th:insert="fragment/sidebar"></div>
+                <!-- sidebar -->
+                <div class="span9">
+                    <div class="content">
+                        <div class="module animate-top">
+                            <div class="module-head">
+                                <h3><i class="icon-desktop"></i> Multiple MSISDN API Calls </h3>
+                            </div>
+
+                            <div class="module-body">
+
+                                <form class="form-horizontal row-fluid" id="msisdnForm" method="post"
+                                      action="/msisdnall">
+
+                                    <input type="hidden" name="page" id="page" value="msisdnall">
+
+                                    <div class="control-group">
+                                        <label class="control-label">MSISDN</label>
+                                        <div class="controls">
+                                            <div id="alertinputmsisdn"></div>
+                                            <textarea name="inmsisdn" id="inmsisdn" class="span5" rows="3"
+                                                      placeholder="Enter MSISDN here..." onblur="myFunctionTextMsisdn()"
+                                                      oninput="this.value = this.value.replace(/[^0-9\n]/g, '').replace(/(\..*)\./g, '$1');"></textarea>
+                                            <i class="icon-info-sign text-info mag-icon-info"
+                                               title="ใส่ได้เป็นตัวเลข MSISDN หลายเบอร์ได้ &#010; เช่น &#010; 0XXXXXXXXX &#010; 0XXXXXXXXX"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label">API</label>
+                                        <div class="controls">
+                                            <div id="alertradiooptions"></div>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI1"
+                                                       value="Msisdn1API_1" onclick="myFunctionRadio()">
+                                                Update POOL Temp.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI2"
+                                                       value="Msisdn1API_2" onclick="myFunctionRadio()">
+                                                Override.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI3"
+                                                       value="Msisdn1API_3" onclick="myFunctionRadio()">
+                                                Activate.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI4"
+                                                       value="Msisdn1API_4" onclick="myFunctionRadio()">
+                                                Release. <i class="icon-info-sign text-info mag-icon-info"
+                                                            title="Cancel MSISDN"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI5"
+                                                       value="Msisdn1API_5" onclick="myFunctionRadio()">
+                                                Delete MSISDN Note.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI8"
+                                                       value="Msisdn1API_8" onclick="myFunctionRadio()">
+                                                Lock <i class="icon-arrow-right"></i> Reserve.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ทำงานต่อกัน 2 API"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI9"
+                                                       value="Msisdn1API_9" onclick="myFunctionRadio()">
+                                                Lock <i class="icon-arrow-right"></i> Reserve <i
+                                                    class="icon-arrow-right"></i> Activate.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ทำงานต่อกัน 3 API"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI10"
+                                                       value="Msisdn1API_10" onclick="myFunctionRadio()">
+                                                OM Release.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI11"
+                                                       value="Msisdn1API_11" onclick="myFunctionRadio()">
+                                                OM Release , Delete MSISDN Note.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ทำงานต่อกัน 2 API"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div id="alertinputpool"></div>
+                                            <div class="input-prepend">
+                                                <span class="add-on">Pool ID</span>
+                                                <input class="span2" type="text" name="inpool" id="inpool" maxlength="3"
+                                                       placeholder="ID" onblur="myFunctionTextPool()"
+                                                       oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+                                                       disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="radio ">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI7"
+                                                       value="Msisdn1API_7" onclick="myFunctionRadio()">
+                                                Re-Assign.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI13"
+                                                       value="Msisdn1API_13" onclick="myFunctionRadio()">
+                                                Reserve Owner <i class="icon-arrow-right"></i> Assign Owner.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="UR Type 2 + UR Type 3 หรือทำพวก UR ขอคืนเบอร์"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI14"
+                                                       value="Msisdn1API_14" onclick="myFunctionRadio()">
+                                                Re-Assign <i class="icon-arrow-right"></i> Lock <i
+                                                    class="icon-arrow-right"></i> Reserve <i
+                                                    class="icon-arrow-right"></i> Activate.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องใส่ pool ด้วย , ทำงานต่อกัน 4 API"></i>
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI15"
+                                                       value="Msisdn1API_15" onclick="myFunctionRadio()">
+                                                Override <i class="icon-arrow-right"></i> Re-Assign.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ต้องใส่ pool ด้วย , ทำงานต่อกัน 2 API"></i>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI6"
+                                                       value="Msisdn1API_6" onclick="myFunctionRadio()">
+                                                Update MSISDN Note.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI12"
+                                                       value="Msisdn1API_12" onclick="myFunctionRadio()">
+                                                Lock <i class="icon-arrow-right"></i> Reserve , Update MSISDN Note.
+                                                <i class="icon-info-sign text-info mag-icon-info"
+                                                   title="ทำงานต่อกัน 3 API"></i>
+                                            </label>
+
+                                            <div id="alertinputnote"></div>
+                                            <input type="text" name="innote" id="innote"
+                                                   placeholder="Enter MSISDN Note here..." class="span8"
+                                                   onblur="myFunctionTextNote()" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div id="alertinputatt"></div>
+                                            <div class="input-prepend">
+                                                <span class="add-on">Attributes</span>
+                                                <input class="span3" type="text" name="inatt" id="inatt" maxlength="2"
+                                                       placeholder="Value" onblur="myFunctionTextAtt()" disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="controls">
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI16"
+                                                       value="Msisdn1API_16" onclick="myFunctionRadio()">
+                                                Update MSISDN Donor Operator.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI17"
+                                                       value="Msisdn1API_17" onclick="myFunctionRadio()">
+                                                Update MSISDN Donor Zone.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI18"
+                                                       value="Msisdn1API_18" onclick="myFunctionRadio()">
+                                                Update MSISDN Recipient Operator.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI19"
+                                                       value="Msisdn1API_19" onclick="myFunctionRadio()">
+                                                Update MSISDN Recipient Zone.
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="optionsAPI" id="optionsMsisdnAPI20"
+                                                       value="Msisdn1API_20" onclick="myFunctionRadio()">
+                                                Update MSISDN TRUE_RES.
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <div class="controls">
+                                            <div class="input-prepend" style="margin-left: 15%;">
+                                                <button type="button" class="btn btn-inverse"
+                                                        onclick="myFunctionSubmit()">Submit API
+                                                </button>
+                                            </div>
+
+                                            <div class="input-prepend inline" style="margin-left: 20px;">
+                                                <button type="reset" class="btn btn-inverse"
+                                                        onclick="myFunctionReset()">Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <!--/form-->
+                            </div>
+                            <!--/.module-body-->
+                        </div>
+                        <!--/.module-->
+                    </div>
+                    <!--/.content-->
+                </div>
+                <!--/.span9-->
+            </div>
+        </div>
+        <!--/.container-->
+    </div>
+    <!--/.wrapper-->
+
+    <script>
+        var alertonoff = false;
+        function myFunctionRadio() {
+            var radionote = document.getElementById("optionsMsisdnAPI6");
+            var radionote2 = document.getElementById("optionsMsisdnAPI12");
+            var radiopool = document.getElementById("optionsMsisdnAPI7");
+            var radiopool2 = document.getElementById("optionsMsisdnAPI13");
+            var radiopool3 = document.getElementById("optionsMsisdnAPI14");
+            var radiopool4 = document.getElementById("optionsMsisdnAPI15");
+            var radioatt = document.getElementById("optionsMsisdnAPI16");
+            var radioatt2 = document.getElementById("optionsMsisdnAPI17");
+            var radioatt3 = document.getElementById("optionsMsisdnAPI18");
+            var radioatt4 = document.getElementById("optionsMsisdnAPI19");
+            var radioatt5 = document.getElementById("optionsMsisdnAPI20");
+
+            if (radioatt.checked || radioatt2.checked || radioatt3.checked || radioatt4.checked || radioatt5.checked) {
+                document.getElementById("inatt").disabled = false;
+                myFunctionAlertOFF("alertinputatt");
+            } else {
+                document.getElementById("inatt").value = "";
+                document.getElementById("inatt").disabled = true;
+                myFunctionAlertOFF("alertinputatt");
+            }
+
+            if (radionote.checked || radionote2.checked) {
+                document.getElementById("innote").disabled = false;
+                myFunctionAlertOFF("alertinputnote");
+            } else {
+                document.getElementById("innote").value = "";
+                document.getElementById("innote").disabled = true;
+                myFunctionAlertOFF("alertinputnote");
+            }
+
+            if (radiopool.checked || radiopool2.checked || radiopool3.checked || radiopool4.checked) {
+                document.getElementById("inpool").disabled = false;
+                myFunctionAlertOFF("alertinputpool");
+            } else {
+                document.getElementById("inpool").value = "";
+                document.getElementById("inpool").disabled = true;
+                myFunctionAlertOFF("alertinputpool");
+            }
+            myFunctionAlertOFF("alertradiooptions");
+        }
+
+        function myFunctionTextMsisdn() {
+            if (document.getElementById("inmsisdn").value === "") {
+                myFunctionAlertON("alertinputmsisdn");
+            } else {
+                myFunctionAlertOFF("alertinputmsisdn");
+            }
+        }
+
+        function myFunctionTextNote() {
+            if (document.getElementById("innote").value === "") {
+                myFunctionAlertON("alertinputnote");
+            } else {
+                myFunctionAlertOFF("alertinputnote");
+            }
+        }
+
+        function myFunctionTextPool() {
+            if (document.getElementById("inpool").value === "") {
+                myFunctionAlertON("alertinputpool");
+            } else {
+                myFunctionAlertOFF("alertinputpool");
+            }
+        }
+
+        function myFunctionTextAtt() {
+            if (document.getElementById("inatt").value === "") {
+                myFunctionAlertON("alertinputatt");
+            } else {
+                myFunctionAlertOFF("alertinputatt");
+            }
+        }
+
+        function myFunctionReset() {
+            document.getElementById("innote").disabled = true;
+            document.getElementById("inpool").disabled = true;
+            document.getElementById("inatt").disabled = true;
+            myFunctionAlertOFF("alertinputmsisdn");
+            myFunctionAlertOFF("alertradiooptions");
+            myFunctionAlertOFF("alertinputnote");
+            myFunctionAlertOFF("alertinputpool");
+            myFunctionAlertOFF("alertinputatt");
+            alertonoff = false;
+            window.scrollTo(0, 0);
+        }
+
+        function myFunctionSubmit() {
+            var gogo = [false, false, false, false, false];
+
+            // msisdn
+            if (document.getElementById("inmsisdn").value === "") {
+                myFunctionAlertON("alertinputmsisdn");
+            } else {
+                myFunctionAlertOFF("alertinputmsisdn");
+                gogo[0] = true;
+            }
+
+            // api radio
+            const radioname = document.getElementsByName("optionsAPI");
+    //        radioname.forEach(item => alert(item.checked));
+            radioname.forEach(arrradioname);
+            if (!alertonoff) {
+                myFunctionAlertON("alertradiooptions");
+            } else {
+                myFunctionAlertOFF("alertradiooptions");
+                gogo[1] = true;
+            }
+
+            // msisdn note
+            var radionote = document.getElementById("optionsMsisdnAPI6");
+            var radionote2 = document.getElementById("optionsMsisdnAPI12");
+
+            if (document.getElementById("innote").value === "" && (radionote.checked || radionote2.checked)) {
+                myFunctionAlertON("alertinputnote");
+            } else {
+                myFunctionAlertOFF("alertinputnote");
+                gogo[2] = true;
+            }
+
+            // pool
+            var radiopool = document.getElementById("optionsMsisdnAPI7");
+            var radiopool2 = document.getElementById("optionsMsisdnAPI13");
+            var radiopool3 = document.getElementById("optionsMsisdnAPI14");
+            var radiopool4 = document.getElementById("optionsMsisdnAPI15");
+
+            if (document.getElementById("inpool").value === "" && (radiopool.checked || radiopool2.checked || radiopool3.checked || radiopool4.checked)) {
+                myFunctionAlertON("alertinputpool");
+            } else {
+                myFunctionAlertOFF("alertinputpool");
+                gogo[3] = true;
+            }
+
+            // Attributes
+            var radioatt = document.getElementById("optionsMsisdnAPI16");
+            var radioatt2 = document.getElementById("optionsMsisdnAPI17");
+            var radioatt3 = document.getElementById("optionsMsisdnAPI18");
+            var radioatt4 = document.getElementById("optionsMsisdnAPI19");
+            var radioatt5 = document.getElementById("optionsMsisdnAPI20");
+
+            if (document.getElementById("inatt").value === "" && (radioatt.checked || radioatt2.checked || radioatt3.checked || radioatt4.checked || radioatt5.checked)) {
+                myFunctionAlertON("alertinputatt");
+            } else {
+                myFunctionAlertOFF("alertinputatt");
+                gogo[4] = true;
+            }
+
+            if (gogo[0] && gogo[1] && gogo[2] && gogo[3] && gogo[4]) {
+                document.getElementById("msisdnForm").submit();
+                document.getElementById("myModalLoader").style.display = "block";
+            }
+        }
+
+        function arrradioname(item) {
+            if (item.checked) {
+                alertonoff = true;
+            }
+        }
+
+        function myFunctionAlertON(element) {
+            var scr = "";
+
+            if (element === "alertinputmsisdn") {
+                scr = "เบอร์";
+            }
+            if (element === "alertradiooptions") {
+                scr = "เลือก API.";
+            }
+            if (element === "alertinputnote") {
+                scr = "Note.";
+            }
+            if (element === "alertinputpool") {
+                scr = "POOL.";
+            }
+            if (element === "alertinputatt") {
+                scr = "ใส่ Attributes ที่เลือก";
+            }
+
+            document.getElementById(element).innerHTML = "\
+                    <div class='alert alert-error'>\
+                        <button type='button' class='close' data-dismiss='alert'>×</button>\
+                        <strong>ลืม! " + scr + "</strong> จำเป็นจ้า \
+                    </div>";
+
+            if (element === "alertinputmsisdn" || element === "alertradiooptions") {
+                window.scrollTo(0, 0);
+            } else {
+                document.getElementById(element).scrollIntoView();
+            }
+        }
+
+        function myFunctionAlertOFF(element) {
+            document.getElementById(element).innerHTML = "";
+        }
+    </script>
+
+</div>
