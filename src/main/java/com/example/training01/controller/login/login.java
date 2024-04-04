@@ -55,6 +55,8 @@ public class login {
 
 //        if (uData.isLogin())
 
+        relogin = "ok";
+
         switch (relogin) {
             case "null":
                 model.addAttribute("relogin", "no_user");
