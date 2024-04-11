@@ -34,81 +34,39 @@
 
                             <div class="module-body">
 
+                                <p>
+                                    <strong>Output</strong>
+                                </p>
+
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
                                         <th></th>
-<!--                                        <th></th>-->
                                         <th>#</th>
-                                        <th>Msisdn</th>
-<!--                                        <th>Status</th>-->
-<!--                                        <th>POOL</th>-->
+                                        <th>Msisdn / SIM</th>
                                         <th>Result</th>
-                                        <th></th>
-<!--                                        <th>Detail</th>-->
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td></td>
-<!--                                        <td></td>-->
                                         <td>1</td>
                                         <td><a th:href="@{/resultdata}">0810000000</a></td>
-<!--                                        <td>PREACTIONTED</td>-->
-<!--                                        <td>RMVSRMP555</td>-->
                                         <td><b class="text-success">Success</b></td>
-                                        <td></td>
-<!--                                        <td><a class="btn" th:href="@{/resultdata}">Detail</a></td>-->
                                     </tr>
                                     <tr>
                                         <td></td>
-<!--                                        <td></td>-->
                                         <td>2</td>
-                                        <td><a th:href="@{/resultdata}">0810000001</a></td>
-<!--                                        <td>Thornton</td>-->
-<!--                                        <td>@fat</td>-->
+                                        <td><a th:href="@{/resultdata}">896604502310000035</a></td>
                                         <td><b class="text-error">Error</b></td>
-                                        <td></td>
-<!--                                        <td><a class="btn" th:href="@{/resultdata}">Detail</a></td>-->
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-<!--                                        <td></td>-->
-                                        <td>3</td>
-                                        <td><a th:href="@{/resultdata}">0810000002</a></td>
-<!--                                        <td>the Bird</td>-->
-<!--                                        <td>RMVSRMP555</td>-->
-                                        <td><b class="text-success">Success</b></td>
-                                        <td></td>
-<!--                                        <td><a class="btn" th:href="@{/resultdata}">Detail</a></td>-->
                                     </tr>
                                     </tbody>
                                 </table>
 
                                 <div class="stream-list">
-                                    <div class="media stream">
-                                        <div class="media-body">
-                                            <div class="stream-headline">
-
-                                                <h5 class="stream-author">
-                                                    0810000000
-                                                    <strong class="text-success">Success</strong>
-                                                </h5>
-                                                <h5 class="stream-author">
-                                                    0810000001
-                                                    <b class="text-error">Error</b>
-                                                </h5>
-
-
-
-                                            </div>
-                                            <!--/.stream-headline-->
-                                        </div>
-                                        <!--/.media-body-->
-                                    </div>
-                                    <!--/.media .stream-->
+                                    <div class="media stream"></div>
                                 </div>
-                                <!--/.stream-list-->
+
                             </div>
                             <!--/.module-body-->
 
@@ -173,11 +131,5 @@
         <!--/.container-->
     </div>
     <!--/.wrapper-->
-
-    <script>
-        window.onload = function (){
-            document.getElementById("myModalLoader").style.display = "none";
-        };
-    </script>
 
 </div>
