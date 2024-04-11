@@ -26,9 +26,4 @@ public class morePages {
         return "loading2";
     }
 
-    @GetMapping("/resultdata")
-    String showResultData() {
-        return "resultdata";
-    }
-
 }

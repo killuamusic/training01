@@ -51,13 +51,13 @@
                                     <tr>
                                         <td></td>
                                         <td>1</td>
-                                        <td><a th:href="@{/resultdata}">0810000000</a></td>
+                                        <td><a th:href="@{/resultdata}" target="_blank">0810000000</a></td>
                                         <td><b class="text-success">Success</b></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>2</td>
-                                        <td><a th:href="@{/resultdata}">896604502310000035</a></td>
+                                        <td><a th:href="@{/resultdata}" target="_blank">896604502310000035</a></td>
                                         <td><b class="text-error">Error</b></td>
                                     </tr>
                                     </tbody>
@@ -84,37 +84,32 @@
                             <div class="btn-box-row row-fluid">
 
                                 <a href="/msisdnall"
-                                   class="btn-box big span6" onclick="goLoad()">
+                                   class="btn-box span2" onclick="goLoad()">
                                     <i class="icon-desktop"></i>
-                                    <b>MSISDN</b>
+                                    <b>Msisdn</b>
                                 </a>
-                                <a href="/simall" class="btn-box big span6"
-                                   onclick="goLoad()">
+                                <a href="/msisdnapi"
+                                   class="btn-box span2" onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>Msisdn API</b>
+                                </a>
+                                <a href="/msisdnmnp"
+                                   class="btn-box span2" onclick="goLoad()">
+                                    <i class="icon-cogs"></i>
+                                    <b>Msisdn MNP</b>
+                                </a>
+                                <a href="/simall"
+                                   class="btn-box span2" onclick="goLoad()">
                                     <i class="icon-desktop"></i>
                                     <b>SIM</b>
                                 </a>
-
-                            </div>
-
-                            <div class="btn-box-row row-fluid">
-
-                                <a href="/msisdnapi"
-                                   class="btn-box big span3" onclick="goLoad()">
-                                    <i class="icon-cogs"></i>
-                                    <b>MSISDN API</b>
-                                </a>
-                                <a href="/msisdnmnp"
-                                   class="btn-box big span3" onclick="goLoad()">
-                                    <i class="icon-cogs"></i>
-                                    <b>MSISDN MNP</b>
-                                </a>
-                                <a href="/simself" class="btn-box big span3"
-                                   onclick="goLoad()">
+                                <a href="/simself"
+                                   class="btn-box span2" onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>SIM Self</b>
                                 </a>
-                                <a href="/simpair" class="btn-box big span3"
-                                   onclick="goLoad()">
+                                <a href="/simpair"
+                                   class="btn-box span2" onclick="goLoad()">
                                     <i class="icon-cogs"></i>
                                     <b>SIM Pair</b>
                                 </a>
